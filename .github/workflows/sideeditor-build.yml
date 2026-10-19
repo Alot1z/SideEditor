@@ -74,3 +74,96 @@ jobs:
           name: SideEditor-build-log
           path: build-console.log
           if-no-files-found: warn
+
+      - name: Attach artifacts to release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/sideeditor'
+        run: |
+          gh release create "${{ github.ref_name }}" SideStore.ipa SideEditor.ipa --title "SideEditor build from ${{ github.sha }}" --target ${{ github.sha }}
+
+  sideeditor:
+    name: Build SideEditor IPA
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 1
+
+      - run: brew install ldid xcbeautify
+
+      - name: Setup Xcode
+        uses: maxim-lobanov/setup-xcode@v1.6.0
+        with:
+          xcode-version: "26.2"
+
+      - name: Build SideEditor
+        run: |
+          set -o pipefail
+          xcodebuild archive -project AltStore.xcodeproj -scheme SideEditor -configuration Release CODE_SIGNING_REQUIRED=NO AD_HOC_CODE_SIGNING_ALLOWED=YES DEVELOPMENT_TEAM=XYZ0123456 SKIP_INSTALL=YES -archivePath SideEditor.xcarchive
+          test -d SideEditor.xcarchive/Products/Applications/SideEditor.app
+          xcodebuild -exportArchive -archivePath SideEditor.xcarchive -exportPath SideEditor.xcarchive/export -exportOptionsPlist scripts/ci/exportOptions.plist
+          test -f SideEditor.xcarchive/export/SideEditor.app/SideEditor
+
+      - name: Fake-sign SideEditor
+        run: |
+          ldid -SAltStore/Resources/ReleaseEntitlements.plist SideEditor.xcarchive/Products/Applications/SideEditor.app/SideEditor
+          ldid -SAltWidget/Resources/ReleaseEntitlements.plist SideEditor.xcarchive/Products/Applications/SideEditor.app/PlugIns/AltWidgetExtension.appex/AltWidgetExtension
+
+      - name: Package SideEditor.ipa
+        run: |
+          mkdir -p Payload/SideEditor.app
+          cp -R SideEditor.xcarchive/Products/Applications/SideEditor.app Payload/SideEditor.app
+          rm -f SideEditor.ipa
+          zip -r SideEditor.ipa Payload
+          rm -rf Payload
+
+      - name: Verify SideEditor identity in built IPA
+        run: |
+          python3 - <<'PY'
+          import plistlib, sys, zipfile
+          ipa = "SideEditor.ipa"
+          with zipfile.ZipFile(ipa) as z:
+              infos = [n for n in z.namelist() if n.endswith(".app/Info.plist") and n.count("/") == 2]
+              if len(infos) != 1:
+                  sys.exit(f"expected one Payload app, found {infos}")
+              info = plistlib.loads(z.read(infos[0]))
+          expected = {
+              "CFBundleDisplayName": "SideEditor",
+              "CFBundleIdentifier": "com.SideStore.SideStore",
+              "CFBundleName": "SideStore",
+              "CFBundleExecutable": "SideStore",
+          }
+          actual = {k: info.get(k) for k in expected}
+          print(actual)
+          if actual != expected:
+              sys.exit(f"identity mismatch: expected {expected}, got {actual}")
+          print("identity: ok")
+          PY
+
+      - name: Upload SideEditor IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: SideEditor
+          path: SideEditor.ipa
+          if-no-files-found: error
+
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: SideEditor-build-log
+          path: build-console.log
+          if-no-files-found: warn
+
+      - name: Attach artifacts to release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/sideeditor'
+        run: |
+          gh release create "${{ github.ref_name }}" SideEditor.ipa --title "SideEditor build from ${{ github.sha }}" --target ${{ github.sha }}
+
+      - name: Final verification
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f SideEditor.ipa
+          test -f SideStore.ipa
+          echo "Both SideStore.ipa and SideEditor.ipa are present."

@@ -7,13 +7,17 @@ Date: 2026-10-19
 - Repository: <https://github.com/Alot1z/SideEditor> (private)
 - Upstream: <https://github.com/SideStore/SideStore>
 - Base commit: `d97ec133719d79916675bdaf722b82a8d091d545` (`develop`, 2026-10-16)
-- Working branch: `sideeditor`
+- Working branch: `sideeditor` (default branch in the remote)
 - Submodules: SideSign `752d1ef602aa792a432ffa1e71646dc1ecf7363c`, minimuxer `12be70dc2627307a16bfd2dc7a009080d5bec909`
+- The remote is a standalone private repository with an `upstream` remote, not a GitHub network fork: GitHub does not allow a private network fork of a public repository. History and submodule pins are identical to upstream `d97ec133`.
 - Commits:
   - `f521e5f25e051ae10b5fddd0bf6403eb47383f09` — add CI workflow
-  - `4c49a42f2900d8d2b3638c3fc8ab89fe8c0dd003` — display name SideEditor
+  - `4c49a42f2900d8d2b3638c3fc8ab89fe8c0dd003` — display name SideEditor (app plist + CI artifact/identity gate)
+  - `488ba9d3` — docs: record foundation evidence and upstream pin
+  - `19267872` — docs: note disabled upstream workflows and rebuild delta
 - Local commit guard: `.git/hooks/commit-msg` strips AI/harness attribution trailers.
 - All upstream workflows (alpha, nightly, PR, stable, triage, artifact-links) are disabled in the fork; only `SideEditor CI` is active. This prevents accidental scheduled/dispatch runs or upstream-facing automation.
+- The remote has 0 pull requests and 0 issues.
 - No PR, issue, comment, or automated posting against SideStore/SideStore.
 
 ## Baseline CI — untouched upstream source
@@ -37,9 +41,10 @@ Date: 2026-10-19
 - Artifact: `SideEditor` (id `12206332341`, 30,991,199 bytes archive)
 - Downloaded file: `artifacts/rename/SideEditor.ipa`, 31,044,158 bytes
 - File SHA-256: `f2a8e513ae8831c29a66ee20534410c398e104309276a27cdb95ba83fdcde971`
+- Zip integrity: `unzip -t` exited 0 (`No errors detected`)
 - Inspected: `Payload/SideStore.app`, `CFBundleDisplayName=SideEditor`, `CFBundleIdentifier=com.SideStore.SideStore` (unchanged), `CFBundleName=SideStore`, `CFBundleExecutable=SideStore`, `MinimumOSVersion=15.0`.
 - Internal target names and bundle ID were left unchanged as planned.
-- Source delta is only the `CFBundleDisplayName` key. The rebuilt IPA has 8 differing entries versus baseline (Info.plist, app-intents UUID/metadata, widget binary, nested `SideBackup.ipa`) because the build is not reproducible; the main app executable hash is identical. This is build nondeterminism, not a second source change.
+- Application source delta is only the `CFBundleDisplayName` key; the same commit also adds the artifact rename and identity gate to `.github/workflows/sideeditor-build.yml`. The rebuilt IPA has 8 differing entries versus baseline (Info.plist, app-intents UUID/metadata, widget binary, nested `SideBackup.ipa`) because the build is not reproducible; the main app executable hash is identical. This is build nondeterminism, not a second source change.
 
 ## Not proven yet
 

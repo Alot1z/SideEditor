@@ -34,18 +34,43 @@ jobs:
           set -o pipefail
           python3 scripts/ci/workflow.py build 2>&1 | tee build-console.log
           test -f SideStore.ipa
+          cp SideStore.ipa SideEditor.ipa
+          test -f SideEditor.ipa
+
+      - name: Verify SideEditor identity in built IPA
+        run: |
+          python3 - <<'PY'
+          import plistlib, sys, zipfile
+          ipa = "SideEditor.ipa"
+          with zipfile.ZipFile(ipa) as z:
+              infos = [n for n in z.namelist() if n.endswith(".app/Info.plist") and n.count("/") == 2]
+              if len(infos) != 1:
+                  sys.exit(f"expected one Payload app, found {infos}")
+              info = plistlib.loads(z.read(infos[0]))
+          expected = {
+              "CFBundleDisplayName": "SideEditor",
+              "CFBundleIdentifier": "com.SideStore.SideStore",
+              "CFBundleName": "SideStore",
+              "CFBundleExecutable": "SideStore",
+          }
+          actual = {k: info.get(k) for k in expected}
+          print(actual)
+          if actual != expected:
+              sys.exit(f"identity mismatch: expected {expected}, got {actual}")
+          print("identity: ok")
+          PY
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
-          name: SideStore-baseline
-          path: SideStore.ipa
+          name: SideEditor
+          path: SideEditor.ipa
           if-no-files-found: error
 
       - name: Upload build log
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: SideStore-baseline-log
+          name: SideEditor-build-log
           path: build-console.log
           if-no-files-found: warn

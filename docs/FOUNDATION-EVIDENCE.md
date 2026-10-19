@@ -13,6 +13,7 @@ Date: 2026-10-19
   - `f521e5f25e051ae10b5fddd0bf6403eb47383f09` — add CI workflow
   - `4c49a42f2900d8d2b3638c3fc8ab89fe8c0dd003` — display name SideEditor
 - Local commit guard: `.git/hooks/commit-msg` strips AI/harness attribution trailers.
+- All upstream workflows (alpha, nightly, PR, stable, triage, artifact-links) are disabled in the fork; only `SideEditor CI` is active. This prevents accidental scheduled/dispatch runs or upstream-facing automation.
 - No PR, issue, comment, or automated posting against SideStore/SideStore.
 
 ## Baseline CI — untouched upstream source
@@ -38,6 +39,7 @@ Date: 2026-10-19
 - File SHA-256: `f2a8e513ae8831c29a66ee20534410c398e104309276a27cdb95ba83fdcde971`
 - Inspected: `Payload/SideStore.app`, `CFBundleDisplayName=SideEditor`, `CFBundleIdentifier=com.SideStore.SideStore` (unchanged), `CFBundleName=SideStore`, `CFBundleExecutable=SideStore`, `MinimumOSVersion=15.0`.
 - Internal target names and bundle ID were left unchanged as planned.
+- Source delta is only the `CFBundleDisplayName` key. The rebuilt IPA has 8 differing entries versus baseline (Info.plist, app-intents UUID/metadata, widget binary, nested `SideBackup.ipa`) because the build is not reproducible; the main app executable hash is identical. This is build nondeterminism, not a second source change.
 
 ## Not proven yet
 

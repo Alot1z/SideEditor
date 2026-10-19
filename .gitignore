@@ -104,3 +104,11 @@ tmp
 
 scratch*.sh
 *.sh
+# SideEditor foundation artifacts
+**/SideEditor.ipa
+/artifacts/
+build-console.log
+
+# SideEditor documentation (keep tracked despite the global *.md ignore)
+!docs/
+!docs/**/*.md

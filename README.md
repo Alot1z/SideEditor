@@ -1,47 +1,50 @@
-# SideStore
+# SideEditor
 
-> SideStore is an *untethered, community driven* alternative app store for non-jailbroken iOS devices 
+> SideEditor is a *SideStore fork* — the original `SideStore` app (`SideStore/SideStore`) rewritten as a **new app named `SideEditor`**.
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://makeapullrequest.com)
-[![Nightly SideStore build](https://github.com/SideStore/SideStore/actions/workflows/nightly.yml/badge.svg)](https://github.com/SideStore/SideStore/actions/workflows/nightly.yml)
-[![.github/workflows/beta.yml](https://github.com/SideStore/SideStore/actions/workflows/beta.yml/badge.svg)](https://github.com/SideStore/SideStore/actions/workflows/beta.yml)
-[![Discord](https://img.shields.io/discord/949183273383395328?label=Discord)](https://dis.sidestore.io)
 
-![Alt](https://repobeats.axiom.co/api/embed/3a329ce95955690b9a9366f8d5598626a847d96c.svg "Repobeats analytics image")
+![Repobeats analytics image](https://repobeats.axiom.co/api/embed/3a329ce95955690b9a9366f8d5598626a847d96c.svg "Repobeats analytics image")
 
-SideStore is an iOS application that allows you to sideload apps onto your iOS device with just your Apple ID. SideStore resigns apps with your personal development certificate, and then uses a [specially designed VPN](https://github.com/jkcoxson/em_proxy) in order to trick iOS into installing them. SideStore will periodically "refresh" your apps in the background, to keep their normal 7-day development period from expiring.
+SideEditor is what the SideStore project became when it was retargeted at a **new app name and a new build pipeline**. It is a fork of the original SideStore work, not a new, unrelated project. The **UI, screens, and most of the app logic are unchanged** — they reuse SideStore's existing `AltStore` target surface directly.
 
-SideStore's goal is to provide an untethered sideloading experience. It's a community driven fork of [AltStore](https://github.com/rileytestut/AltStore), and has already implemented some of the community's most-requested features.
+## What changed (and what did not)
 
-(Contributions are welcome! 🙂)
+- **App name:** the app is now `SideEditor`. It builds a distinct IPA with `CFBundleDisplayName` = `SideEditor`.
+- **UI and behavior:** unchanged from SideStore. You get the same Browse / My Apps / Settings / News screens, the same app ID handling, same permissions, same unauthorised-sideloading model.
+- **Build tooling:** reuse of SideStore's `AltStore.xcodeproj` (the `SideStore` target still builds with the original app metadata preserved), plus the new `SideEditor/` Swift 6.0 package that adds `SideEditorCore`, `SideEditorSetup`, `SideEditorTab`, and `SideEditorViews` as the editor surface.
+- **CI / release:** `.github/workflows/sideeditor-build.yml` now builds `SideStore.ipa` and `SideEditor.ipa` on `macos-26`, fake-signs both with `ldid`, verifies IPA identity, and attaches both to a single GitHub Release on push to the `sideeditor` branch.
+- **Source:** the SideEditor fork lives at `https://github.com/Alot1z/SideEditor` (a fork of `SideStore/SideStore`).
 
 ## Requirements
+
 - Xcode 15
 - iOS 14+
 - Rustup (`brew install rustup`)
+- macOS host for local builds and packaging
 
-Why iOS 14? Targeting such a recent version of iOS allows us to accelerate development, especially since not many developers have older devices to test on. This is corrobated by the fact that SwiftUI support is much better, allowing us to transistion to a more modern UI codebase.
 ## Project Overview
 
-### SideStore
-SideStore is a just regular, sandboxed iOS application. The AltStore app target contains the vast majority of SideStore's functionality, including all the logic for downloading and updating apps through SideStore. SideStore makes heavy use of standard iOS frameworks and technologies most iOS developers are familiar with.
+See the original SideStore README for the technical overview of the pieces that are **reused unchanged**:
 
-### EM Proxy
-[EM Proxy](https://github.com/jkcoxson/em_proxy) powers the defining feature of SideStore: untethered app installation. By leveraging a custom-built App Store app with additional entitlements ([LocalDevVPN](https://github.com/jkcoxson/LocalDevVPN)) to create the VPN tunnel for us, it allows SideStore to take advantage of [Jitterbug](https://github.com/osy/Jitterbug)'s loopback method without requiring a paid developer account.
+- **SideStore** — the sandboxed iOS application that contains the vast majority of the app logic, including all the logic for downloading and updating apps.
+- **EM Proxy** — powers untethered app installation via a custom App Store app and `LocalDevVPN` to create the VPN tunnel.
+- **Minimuxer** — a lockdown muxer that runs inside iOS's sandbox and replicates Apple's `usbmuxd` protocol on macOS.
+- **Roxas** — Riley Testut's internal framework from AltStore; the SideEditor fork inherits this dependency.
 
-### Minimuxer
-[Minimuxer](https://github.com/jkcoxson/minimuxer) is a lockdown muxer that can run inside iOS’s sandbox. It replicates Apple’s usbmuxd protocol on macOS to “discover” devices to interface with LocalDevVPN on-device.
+## Contributing / Compilation Instructions
 
-### Roxas
-[Roxas](https://github.com/rileytestut/roxas) is Riley Testut's internal framework from AltStore used across many of their iOS projects, developed to simplify a variety of common tasks used in iOS development.
-
-We're hoping to eventually eliminate our dependency on it, as it increases the amount of unnecessary Objective-C in the project.
-
-## Contributing/Compilation Instructions
-
-Please see [CONTRIBUTING.md](./CONTRIBUTING.md)
+Please see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## Licensing
 
 This project is licensed under the **AGPLv3 license**.
+
+- **AGPL-3.0 applies to the SideStore-derived code** that is now built as `SideEditor`. You may use, modify, build on, and sell it.
+- You may also make your own fork of this project.
+- If you distribute a modified version, or make the modified version available as a network service, you must, under the conditions of AGPL-3.0, make the corresponding source code available to users of that server.
+- If you run a modified version **only for yourself** (no distribution), no source availability is required.
+- You must not remove copyright or license notices, and you cannot relicense this code under a different, non-AGPL license.
+
+The full license text is in [LICENSE](./LICENSE).

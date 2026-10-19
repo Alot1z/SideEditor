@@ -269,26 +269,6 @@ A8000000000000000003 /* SideEditorTab.swift */ = {
 				};
 			};
 
-A8000000000000000000 /* SideEditorCore.swift */ = {
-				isa = PBXFileReference;
-				lastKnownFileType = sourcecode.swift;
-				path = SideEditorCore.swift;
-				sourceTree = "<group>";
-				virtualTextMacros = {
-					FileFolderName = "";
-					FilePath = "";
-				};
-			};
-A8000000000000000001 /* SideEditorViews.swift */ = {
-				isa = PBXFileReference;
-				lastKnownFileType = sourcecode.swift;
-				path = SideEditorViews.swift;
-				sourceTree = "<group>";
-				virtualTextMacros = {
-					FileFolderName = "";
-					FilePath = "";
-				};
-			};
 /* Begin PBXFrameworksBuildPhase section */
 		BF580478246A28F7008AE704 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;

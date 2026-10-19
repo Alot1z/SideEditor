@@ -1,0 +1,51 @@
+name: SideEditor CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [sideeditor]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sideeditor-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build SideEditor IPA
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 1
+
+      - run: brew install ldid xcbeautify
+
+      - name: Setup Xcode
+        uses: maxim-lobanov/setup-xcode@v1.6.0
+        with:
+          xcode-version: "26.2"
+
+      - name: Build
+        run: |
+          set -o pipefail
+          python3 scripts/ci/workflow.py build 2>&1 | tee build-console.log
+          test -f SideStore.ipa
+
+      - name: Upload IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: SideStore-baseline
+          path: SideStore.ipa
+          if-no-files-found: error
+
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: SideStore-baseline-log
+          path: build-console.log
+          if-no-files-found: warn

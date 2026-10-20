@@ -17,7 +17,6 @@
 		A8E8DEA63059BC8800F69B47 /* CodeSignKit in Frameworks */ = {isa = PBXBuildFile; productRef = A8E8DEA53059BC8800F69B47 /* CodeSignKit */; };
 		A8E8DEA93059BC9800F69B47 /* CodeSignKit in Frameworks */ = {isa = PBXBuildFile; productRef = A8E8DEA83059BC9800F69B47 /* CodeSignKit */; };
 		A8F5E9AF30422E3600DBD7E1 /* SideSign in Frameworks */ = {isa = PBXBuildFile; productRef = A8F5E9AE30422E3600DBD7E1 /* SideSign */; };
-		A8D0E0F12F5A000100AA0003 /* SideEditorCore in Frameworks */ = {isa = PBXBuildFile; productRef = A8D0E0F12F5A000100AA0002 /* SideEditorCore */; };
 		BF989177250AABF4002ACF50 /* AltWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BF989167250AABF3002ACF50 /* AltWidgetExtension.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -257,7 +256,6 @@
 				A8C37035302DA84D0010213A /* Starscream in Frameworks */,
 				A8C37039302DA8D90010213A /* SemanticVersion in Frameworks */,
 				A87939D3303A89CA004D9227 /* Minimuxer in Frameworks */,
-				A8D0E0F12F5A000100AA0003 /* SideEditorCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,7 +376,6 @@
 				A8C37038302DA8D90010213A /* SemanticVersion */,
 				A87939D2303A89CA004D9227 /* Minimuxer */,
 				A8F5E9AE30422E3600DBD7E1 /* SideSign */,
-				A8D0E0F12F5A000100AA0002 /* SideEditorCore */,
 			);
 			productName = AltStore;
 			productReference = BFD2476A2284B9A500981D42 /* SideStore.app */;
@@ -434,7 +431,6 @@
 				A8C37037302DA8D90010213A /* XCRemoteSwiftPackageReference "SemanticVersion" */,
 				A87939D1303A89C9004D9227 /* XCLocalSwiftPackageReference "Dependencies/minimuxer" */,
 				A8E8DEA43059BC8800F69B47 /* XCRemoteSwiftPackageReference "CodeSignKit" */,
-				A8D0E0F12F5A000100AA0001 /* XCLocalSwiftPackageReference "SideEditor/SideEditorCore" */,
 			);
 			productRefGroup = BFD2476B2284B9A500981D42 /* Products */;
 			projectDirPath = "";
@@ -962,10 +958,6 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Dependencies/SideSign;
 		};
-		A8D0E0F12F5A000100AA0001 /* XCLocalSwiftPackageReference "SideEditor/SideEditorCore" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = SideEditor/SideEditorCore;
-		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -1063,11 +1055,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A8C37021302DA7A70010213A /* XCLocalSwiftPackageReference "Dependencies/SideSign" */;
 			productName = SideSign;
-		};
-		A8D0E0F12F5A000100AA0002 /* SideEditorCore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A8D0E0F12F5A000100AA0001 /* XCLocalSwiftPackageReference "SideEditor/SideEditorCore" */;
-			productName = SideEditorCore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

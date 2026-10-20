@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Minimuxer
+import SideEditorCore
 
 public final class AppBootManager {
     public static let shared = AppBootManager()
@@ -106,6 +107,9 @@ public final class AppBootManager {
     
     public nonisolated func performBootSequence() async {
         debugLog("[AppBootManager] performBootSequence() entered")
+        // The SideEditor package is linked unconditionally; logging its identity here keeps the
+        // integration reachable from the app so the linker cannot drop the whole module.
+        debugLog("[AppBootManager] editor surface: \(SideEditorCore.displayName) \(SideEditorSetup.buildMode) tab=\(SideEditorTab.title) view=\(SideEditorViews.tabTitle)")
         defer { debugLog("[AppBootManager] performBootSequence() exited") }
         
         async let jitCheck: Void = {

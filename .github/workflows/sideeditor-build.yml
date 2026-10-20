@@ -119,6 +119,33 @@ jobs:
           print("identity: ok")
           PY
 
+      - name: Verify SideEditor code is linked into the shipped binary
+        run: |
+          set -o pipefail
+          BIN_DIR="$(mktemp -d)"
+          unzip -q -o SideEditor.ipa 'Payload/SideStore.app/SideStore' -d "$BIN_DIR"
+          BIN="$BIN_DIR/Payload/SideStore.app/SideStore"
+          test -f "$BIN"
+          ls -la "$BIN"
+
+          # A Release archive may strip the symbol table, so treat nm as
+          # informational and check the image itself as the hard evidence:
+          # Swift mangles the module name into every symbol and keeps type names
+          # in the reflection metadata, both of which survive stripping.
+          NM_COUNT=$(xcrun nm --defined-only "$BIN" 2>/dev/null | grep -c 'SideEditorCore' || true)
+          echo "Symbol-table entries mentioning SideEditorCore: ${NM_COUNT:-0}"
+
+          rc=0
+          for name in SideEditorCore SideEditorSetup SideEditorTab SideEditorViews; do
+            if LC_ALL=C grep -qa "$name" "$BIN"; then
+              echo "found in shipped binary: $name"
+            else
+              echo "::error::'$name' is absent from the shipped binary; the SideEditor package is not linked"
+              rc=1
+            fi
+          done
+          exit "$rc"
+
       - name: Upload SideEditor IPA
         uses: actions/upload-artifact@v4
         with:

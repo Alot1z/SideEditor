@@ -226,48 +226,7 @@
 		A8EEC71D2F4B10D900F2436D /* xcconfigs */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = xcconfigs; sourceTree = "<group>"; };
 		A8EEC8412F4B146A00F2436D /* AltStore */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (A8EEC8CB2F4B146B00F2436D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, A8EEC8CD2F4B146B00F2436D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = AltStore; sourceTree = "<group>"; };
 		A8EECF2A2F4B195000F2436D /* SideStore */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (A8EECF492F4B195000F2436D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, A8EECF4A2F4B195000F2436D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SideStore; sourceTree = "<group>"; };
-				A8EECF4B2F4B195000F2436D /* SideEditor */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (); explicitFileTypes = {}; explicitFolders = (); path = SideEditor; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
-A8000000000000000000 /* SideEditorCore.swift */ = {
-				isa = PBXFileReference;
-				lastKnownFileType = sourcecode.swift;
-				path = SideEditorCore.swift;
-				sourceTree = "<group>";
-				virtualTextMacros = {
-					FileFolderName = "";
-					FilePath = "";
-				};
-			};
-A8000000000000000001 /* SideEditorViews.swift */ = {
-				isa = PBXFileReference;
-				lastKnownFileType = sourcecode.swift;
-				path = SideEditorViews.swift;
-				sourceTree = "<group>";
-				virtualTextMacros = {
-					FileFolderName = "";
-					FilePath = "";
-				};
-			};
-A8000000000000000002 /* SideEditorSources.swift */ = {
-				isa = PBXFileReference;
-				lastKnownFileType = sourcecode.swift;
-				path = SideEditorSources.swift;
-				sourceTree = "<group>";
-				virtualTextMacros = {
-					FileFolderName = "";
-					FilePath = "";
-				};
-			};
-A8000000000000000003 /* SideEditorTab.swift */ = {
-				isa = PBXFileReference;
-				lastKnownFileType = sourcecode.swift;
-				path = SideEditorTab.swift;
-				sourceTree = "<group>";
-				virtualTextMacros = {
-					FileFolderName = "";
-					FilePath = "";
-				};
-			};
 
 /* Begin PBXFrameworksBuildPhase section */
 		BF580478246A28F7008AE704 /* Frameworks */ = {
@@ -393,11 +352,9 @@ A8000000000000000003 /* SideEditorTab.swift */ = {
 				BFD247662284B9A500981D42 /* Sources */,
 				BFD247672284B9A500981D42 /* Frameworks */,
 				A8E00D3F2D0C9C6D000DD2C7 /* Build SideBackup.ipa */,
-				89ACA514-2A36-4224-82A6-2C22E67437D9/* Embed SideEditor Extension */,
 				BFD247682284B9A500981D42 /* Resources */,
 				BF088D2B2501A087008082D9 /* Embed Frameworks */,
 				BF98917B250AABF4002ACF50 /* Embed Foundation Extensions */,
-				96267634-70B5-4D73-B39D-49766B9F333B/* Build SideEditor.ipa */,
 			);
 			buildRules = (
 			);
@@ -424,204 +381,6 @@ A8000000000000000003 /* SideEditorTab.swift */ = {
 			productReference = BFD2476A2284B9A500981D42 /* SideStore.app */;
 			productType = "com.apple.product-type.application";
 		};
-
-/* Begin PBXNativeTarget section */
-BFD247842284B9A700981D42 /* Build configuration list for PBXNativeTarget "SideEditor" */ = {
-	isa = XCConfigurationList;
-	buildConfigurations = (
-		BFD247852284B9A700981D42 /* Debug */,
-		BFD247862284B9A700981D42 /* Release */,
-	);
-	defaultConfigurationIsVisible = 0;
-	defaultConfigurationName = Release;
-};
-
-BFD247842284B9A700981D42 /* SideEditor */ = {
-	isa = PBXNativeTarget;
-	buildConfigurationList = BFD247842284B9A700981D42 /* Build configuration list for PBXNativeTarget "SideEditor" */;
-	buildPhases = (
-		BF580477246A28F7008AE704 /* Sources */,
-		BFD247672284B9A500981D42 /* Frameworks */,
-		96267634-70B5-4D73-B39D-49766B9F333B /* Build SideEditor.ipa */,
-		BFD247682284B9A500981D42 /* Resources */,
-		89ACA514-2A36-4224-82A6-2C22E67437D9 /* Embed SideEditor Extension */,
-		BF98917B250AABF4002ACF50 /* Embed Foundation Extensions */,
-	);
-	buildRules = (
-	);
-	dependencies = (
-	);
-	fileSystemSynchronizedGroups = (
-		A8EEC3482F4B0D8600F2436D /* Shared */,
-		A8EEC8412F4B146A00F2436D /* AltStore */,
-		A8EECF2A2F4B195000F2436D /* SideStore */,
-		A8EECF4B2F4B195000F2436D /* SideEditor */,
-	);
-	name = SideEditor;
-	packageProductDependencies = (
-		A8C37028302DA7F30010213A /* MarkdownKit */,
-		A8C3702B302DA80D0010213A /* KeychainAccess */,
-		A8C3702E302DA82A0010213A /* Nuke */,
-		A8C37034302DA84D0010213A /* Starscream */,
-		A8C37038302DA8D90010213A /* SemanticVersion */,
-		A87939D2303A89CA004D9227 /* Minimuxer */,
-		A8F5E9AE30422E3600DBD7E1 /* SideSign */,
-	);
-	productName = SideEditor;
-	productReference = BFD247812284B9A700981D42 /* SideEditor.app */;
-	productType = "com.apple.product-type.application";
-};
-
-BFD247852284B9A700981D42 /* Debug */ = {
-	isa = XCBuildConfiguration;
-	baseConfigurationReference = B3C39607284F4C8400DA9E2F /* Build.xcconfig */;
-	buildSettings = {
-		ALWAYS_SEARCH_USER_PATHS = NO;
-		CLANG_ANALYZER_NONNULL = YES;
-		CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-		CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-		CLANG_CXX_LIBRARY = "libc++";
-		CLANG_ENABLE_MODULES = YES;
-		CLANG_ENABLE_OBJC_ARC = YES;
-		CLANG_ENABLE_OBJC_WEAK = YES;
-		CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-		CLANG_WARN_BOOL_CONVERSION = YES;
-		CLANG_WARN_COMMA = YES;
-		CLANG_WARN_CONSTANT_CONVERSION = YES;
-		CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-		CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-		CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
-		CLANG_WARN_EMPTY_BODY = YES;
-		CLANG_WARN_ENUM_CONVERSION = YES;
-		CLANG_WARN_INFINITE_RECURSION = YES;
-		CLANG_WARN_INT_CONVERSION = YES;
-		CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-		CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-		CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-		CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-		CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-		CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-		CLANG_WARN_STRICT_PROTOTYPES = YES;
-		CLANG_WARN_SUSPICIOUS_MOVE = YES;
-		CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-		CLANG_WARN_UNREACHABLE_CODE = YES;
-		CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-		CODE_SIGN_IDENTITY = "iPhone Developer";
-		COPY_PHASE_STRIP = NO;
-		DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-		DEVELOPMENT_TEAM = "$(DEVELOPMENT_TEAM)";
-		EAGER_LINKING = YES;
-		ENABLE_NS_ASSERTIONS = YES;
-		ENABLE_STRICT_OBJC_MSGSEND = YES;
-		ENABLE_USER_SCRIPT_SANDBOXING = NO;
-		GCC_C_LANGUAGE_STANDARD = gnu11;
-		GCC_DYNAMIC_NO_PIC = NO;
-		GCC_NO_COMMON_BLOCKS = YES;
-		GCC_OPTIMIZATION_LEVEL = 0;
-		GCC_PREPROCESSOR_DEFINITIONS = (
-			"DEBUG=1",
-			"$(inherited)",
-		);
-		GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-		GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-		GCC_WARN_UNDECLARED_SELECTOR = YES;
-		GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-		GCC_WARN_UNUSED_FUNCTION = YES;
-		GCC_WARN_UNUSED_VARIABLE = YES;
-		IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-		LLVM_LTO = YES_THIN;
-		MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-		MTL_FAST_MATH = YES;
-		ONLY_ACTIVE_ARCH = YES;
-		OTHER_CPLUSPLUSFLAGS = (
-			"$(OTHER_CFLAGS)",
-			"-Wno-module-import-in-extern-c",
-		);
-		SDKROOT = iphoneos;
-		STRING_CATALOG_GENERATE_SYMBOLS = YES;
-		SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
-		SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG BETA";
-		SWIFT_ENFORCE_EXCLUSIVE_ACCESS = "debug-only";
-		SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-		SYSTEM_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Dependencies/SideSign/Dependencies\"";
-	};
-	name = Debug;
-};
-
-BFD247862284B9A700981D42 /* Release */ = {
-	isa = XCBuildConfiguration;
-	baseConfigurationReference = B3C39607284F4C8400DA9E2F /* Build.xcconfig */;
-	buildSettings = {
-		ALWAYS_SEARCH_USER_PATHS = NO;
-		CLANG_ANALYZER_NONNULL = YES;
-		CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-		CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-		CLANG_CXX_LIBRARY = "libc++";
-		CLANG_ENABLE_MODULES = YES;
-		CLANG_ENABLE_OBJC_ARC = YES;
-		CLANG_ENABLE_OBJC_WEAK = YES;
-		CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-		CLANG_WARN_BOOL_CONVERSION = YES;
-		CLANG_WARN_COMMA = YES;
-		CLANG_WARN_CONSTANT_CONVERSION = YES;
-		CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-		CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-		CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
-		CLANG_WARN_EMPTY_BODY = YES;
-		CLANG_WARN_ENUM_CONVERSION = YES;
-		CLANG_WARN_INFINITE_RECURSION = YES;
-		CLANG_WARN_INT_CONVERSION = YES;
-		CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-		CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-		CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-		CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-		CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-		CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-		CLANG_WARN_STRICT_PROTOTYPES = YES;
-		CLANG_WARN_SUSPICIOUS_MOVE = YES;
-		CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-		CLANG_WARN_UNREACHABLE_CODE = YES;
-		CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-		CODE_SIGN_IDENTITY = "iPhone Developer";
-		COPY_PHASE_STRIP = NO;
-		DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-		DEVELOPMENT_TEAM = "$(DEVELOPMENT_TEAM)";
-		EAGER_LINKING = YES;
-		ENABLE_NS_ASSERTIONS = NO;
-		ENABLE_STRICT_OBJC_MSGSEND = YES;
-		ENABLE_USER_SCRIPT_SANDBOXING = NO;
-		GCC_C_LANGUAGE_STANDARD = gnu11;
-		GCC_NO_COMMON_BLOCKS = YES;
-		GCC_OPTIMIZATION_LEVEL = fast;
-		GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-		GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-		GCC_WARN_UNDECLARED_SELECTOR = YES;
-		GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-		GCC_WARN_UNUSED_FUNCTION = YES;
-		GCC_WARN_UNUSED_VARIABLE = YES;
-		IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-		LLVM_LTO = YES_THIN;
-		MTL_ENABLE_DEBUG_INFO = NO;
-		MTL_FAST_MATH = YES;
-		OTHER_CPLUSPLUSFLAGS = (
-			"$(OTHER_CFLAGS)",
-			"-Wno-module-import-in-extern-c",
-		);
-		SDKROOT = iphoneos;
-		STRING_CATALOG_GENERATE_SYMBOLS = YES;
-		SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
-		SWIFT_ACTIVE_COMPILATION_CONDITIONS = BETA;
-		SWIFT_COMPILATION_MODE = wholemodule;
-		SWIFT_ENFORCE_EXCLUSIVE_ACCESS = "debug-only";
-		SWIFT_OPTIMIZATION_LEVEL = "-Osize";
-		SYSTEM_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Dependencies/SideSign/Dependencies\"";
-		VALIDATE_PRODUCT = YES;
-	};
-	name = Release;
-};
-
-/* End XCConfigurationList section */
-
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -750,10 +509,7 @@ BFD247862284B9A700981D42 /* Release */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-					A8000000000000000000 /* SideEditorCore.swift */,
-					A8000000000000000001 /* SideEditorViews.swift */,
-					A8000000000000000002 /* SideEditorTab.swift */,
-				);
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */

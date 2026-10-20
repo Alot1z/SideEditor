@@ -106,6 +106,10 @@ scratch*.sh
 *.sh
 # SideEditor foundation artifacts
 **/SideEditor.ipa
+
+# SwiftPM scratch directories (SideEditor/SideEditorCore)
+.build/
+.swiftpm/
 /artifacts/
 build-console.log
 

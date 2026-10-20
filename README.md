@@ -12,9 +12,10 @@ SideEditor is what the SideStore project became when it was retargeted at a **ne
 ## What changed (and what did not)
 
 - **App name:** the app is now `SideEditor`. It builds a distinct IPA with `CFBundleDisplayName` = `SideEditor`.
+- **Signing:** the CI IPA is fake-signed with `ldid` (no `_CodeSignature/CodeResources`), exactly like upstream SideStore's free-team builds. It is a build artifact, not an App Store or development-signed install; SideEditor re-signs apps on-device with the user's Apple ID.
 - **UI and behavior:** unchanged from SideStore. You get the same Browse / My Apps / Settings / News screens, the same app ID handling, same permissions, same unauthorised-sideloading model.
-- **Build tooling:** reuse of SideStore's `AltStore.xcodeproj` (the `SideStore` target still builds with the original app metadata preserved), plus the new `SideEditor/` Swift 6.0 package that adds `SideEditorCore`, `SideEditorSetup`, `SideEditorTab`, and `SideEditorViews` as the editor surface.
-- **CI / release:** `.github/workflows/sideeditor-build.yml` now builds `SideStore.ipa` and `SideEditor.ipa` on `macos-26`, fake-signs both with `ldid`, verifies IPA identity, and attaches both to a single GitHub Release on push to the `sideeditor` branch.
+- **Build tooling:** reuse of SideStore's `AltStore.xcodeproj`. The project has exactly one application target (`SideStore`) and one app scheme; the SideEditor identity comes from `PRODUCT_NAME = SideStore` in `Build.xcconfig` plus `CFBundleDisplayName = SideEditor` in `AltStore/Info.plist`. The `SideEditor/` folder holds the editor surface sources (`SideEditorCore`, `SideEditorSetup`, `SideEditorTab`, `SideEditorViews`), which are not yet wired into the application target, so they are not compiled into the IPA.
+- **CI:** `.github/workflows/sideeditor-build.yml` builds on `macos-26` through the project's own Makefile pipeline (`make build`, `make fakesign`, `make ipa`), validates `project.pbxproj` with `scripts/ci/pbxproj_lint.py`, verifies the built bundle identity and embedded `AltWidgetExtension.appex`, and uploads `SideEditor.ipa` as a workflow artifact. It publishes no GitHub Release.
 - **Source:** the SideEditor fork lives at `https://github.com/Alot1z/SideEditor` (a fork of `SideStore/SideStore`).
 
 ## Requirements
